@@ -68,6 +68,19 @@ const SECTIONS = [
 
 const SITE_PAGES = [
   {
+    id: "page-bridges",
+    href: "#/bridges",
+    title: "Bridge cards",
+    type: "Tool",
+    level: "tool",
+    pathway: "Research Question -> Analysis -> Evidence -> Claim",
+    summary: "A doorway for the cards that connect beginner confusion to researcher judgment: decision paths, method comparisons, procedures, data shapes, and red flags.",
+    tags: ["bridge", "bridges", "brdge", "bridge-cards", "decision", "comparison", "confused", "which-test", "method-choice", "red-flag"],
+    sections: [
+      { kind: "p", h: "Search words", body: "bridge cards decision comparisons confused which test procedures data shape red flags researcher judgment" }
+    ]
+  },
+  {
     id: "page-cheat-sheet",
     href: "#/cheat-sheet",
     title: "One-page cheat sheet",
@@ -133,6 +146,11 @@ const HOME_GUIDE_ROUTES = [
     desc: "A compact desk reference for choosing methods, reading results, and writing careful claims."
   },
   {
+    href: "#/bridges",
+    title: "Bridge cards",
+    desc: "The missing middle layer: decision paths, confusing-method pairs, procedures, data shapes, and red flags."
+  },
+  {
     href: "#/method-map",
     title: "Method choice map",
     desc: "Start from the research situation, data type, and row meaning before naming a test."
@@ -162,8 +180,90 @@ const HOME_GUIDE_ROUTES = [
 const HOME_QUICK_TOOLS = [
   { href: "#/cheat-sheet", label: "Cheat sheet", desc: "One-page reference" },
   { href: "#/method-map", label: "Method map", desc: "Choose a method" },
+  { href: "#/bridges", label: "Bridges", desc: "Unblur the middle" },
   { href: "#/flashcards", label: "Flashcards", desc: "Practice recall" },
-  { href: "#/section/visualization", label: "Visuals", desc: "Pick a graph" }
+];
+
+const MENU_TOOLS = [
+  { href: "#/bridges", label: "Bridge cards", count: "Tool" }
+];
+
+const BRIDGE_GROUPS = [
+  {
+    eyebrow: "I know the situation, not the test",
+    title: "Decision bridges",
+    desc: "Start here when the research question is plain-language but the statistics vocabulary has not arrived yet.",
+    href: "#/section/decision-guide",
+    level: "decision-guide",
+    cardIds: [
+      "decide-emergency-router",
+      "decide-before-test",
+      "decide-pre-post",
+      "decide-association",
+      "decide-transcript-performance",
+      "decide-coder-reliability"
+    ]
+  },
+  {
+    eyebrow: "I confuse two choices",
+    title: "Comparison bridges",
+    desc: "Use these when two methods sound similar and you need the one big decision that separates them.",
+    href: "#/section/comparison",
+    level: "comparison",
+    cardIds: [
+      "ind-vs-paired",
+      "t-vs-mann-whitney",
+      "paired-t-vs-wilcoxon",
+      "pearson-vs-spearman",
+      "chi-vs-logistic",
+      "alpha-vs-spearman-brown"
+    ]
+  },
+  {
+    eyebrow: "I need to build the variable first",
+    title: "Procedure bridges",
+    desc: "These sit before the p-value: how to make scales, composites, codebooks, missing-data rules, and descriptive tables.",
+    href: "#/section/procedure",
+    level: "procedure",
+    cardIds: [
+      "composite-score",
+      "likert-item-scale",
+      "scale",
+      "missing-data",
+      "codebook",
+      "descriptive-table"
+    ]
+  },
+  {
+    eyebrow: "I do not trust my rows yet",
+    title: "Data-shape bridges",
+    desc: "Use these when you are linking surveys, performance, chatbot transcripts, attempts, messages, or coder data.",
+    href: "#/section/data-shape",
+    level: "data-shape",
+    cardIds: [
+      "shape-router",
+      "shape-one-row-student",
+      "shape-one-row-message",
+      "shape-long-format",
+      "shape-merged-survey-performance",
+      "shape-final-checklist"
+    ]
+  },
+  {
+    eyebrow: "Something feels too easy",
+    title: "Red-flag bridges",
+    desc: "These are the senior-researcher pause cards: the places where a clean result can still support a messy claim.",
+    href: "#/section/red-flag",
+    level: "red-flag",
+    cardIds: [
+      "flag-repeated-rows",
+      "flag-engagement-learning",
+      "flag-denominator-drift",
+      "flag-completers-only",
+      "flag-p-only",
+      "flag-multiple-tests"
+    ]
+  }
 ];
 
 const METHOD_CHOICE_MAP = [
@@ -368,6 +468,7 @@ function getRoute() {
   if (parts[0] === "section" && parts[1]) return { kind: "section", slug: parts[1] };
   if (parts[0] === "pathway" && parts[1]) return { kind: "pathway", slug: parts[1] };
   if (parts[0] === "card"    && parts[1]) return { kind: "card", id: parts[1] };
+  if (parts[0] === "bridges")             return { kind: "bridges" };
   if (parts[0] === "method-map")          return { kind: "method-map" };
   if (parts[0] === "cheat-sheet")         return { kind: "cheat-sheet" };
   if (parts[0] === "flashcards")          return { kind: "flashcards", deckId: parts[1] || "" };
@@ -385,6 +486,7 @@ function render() {
   else if (r.kind === "section")       view.innerHTML = renderSection(r.slug);
   else if (r.kind === "pathway")       view.innerHTML = renderPathwayIndex(r.slug);
   else if (r.kind === "card")          view.innerHTML = renderCard(r.id);
+  else if (r.kind === "bridges")       view.innerHTML = renderBridgeCards();
   else if (r.kind === "method-map")    view.innerHTML = renderMethodChoiceMap();
   else if (r.kind === "cheat-sheet")   view.innerHTML = renderCheatSheet();
   else if (r.kind === "flashcards")    view.innerHTML = renderFlashcards(r.deckId);
@@ -420,6 +522,7 @@ function syncPrimaryNav(route) {
   if (!links.length) return;
 
   let active = "home";
+  if (route.kind === "bridges") active = "guide";
   if (route.kind === "method-map") active = "guide";
   if (route.kind === "cheat-sheet") active = "sheet";
   if (route.kind === "flashcards") active = "flashcards";
@@ -856,6 +959,68 @@ function relatedTitles(card) {
 
 function unique(items) {
   return [...new Set(items.filter(Boolean))];
+}
+
+function renderBridgeCards() {
+  const total = BRIDGE_GROUPS.reduce((sum, group) => {
+    return sum + CARDS.filter(card => card.level === group.level).length;
+  }, 0);
+  return `
+    <nav class="crumb"><a href="#/">Home</a> · Bridge cards</nav>
+    <header class="page-head bridge-head">
+      <p class="home-kicker">Bridge mode</p>
+      <h1>Bridge cards</h1>
+      <p class="lede">This is the missing middle layer: the cards that help you move from <span class="ex">I kind of recognize these words</span> to <span class="ex">I know what decision I need to make next</span>.</p>
+    </header>
+
+    <section class="bridge-start" aria-label="How bridge cards work">
+      <h2>Use them when you are between vocabulary and analysis</h2>
+      <ol>
+        <li><strong>Decision bridges</strong> translate a research situation into possible methods.</li>
+        <li><strong>Comparison bridges</strong> separate methods that sound almost the same.</li>
+        <li><strong>Procedure bridges</strong> help you build variables before testing them.</li>
+        <li><strong>Data-shape bridges</strong> check whether your rows can support the analysis.</li>
+        <li><strong>Red-flag bridges</strong> tell you when a result may be easier to overclaim than to trust.</li>
+      </ol>
+    </section>
+
+    <section class="bridge-groups" aria-label="${total} bridge-related cards">
+      ${BRIDGE_GROUPS.map(renderBridgeGroup).join("")}
+    </section>
+
+    <aside class="callout info bridge-note">
+      <h3>Senior researcher note</h3>
+      <p>The bridge cards are not a separate statistical method family. They are the judgment layer around methods: the part that helps you decide, prepare, compare, pause, and then make a careful claim.</p>
+    </aside>
+  `;
+}
+
+function renderBridgeGroup(group) {
+  const items = bridgePreviewCards(group);
+  const allCount = CARDS.filter(card => card.level === group.level).length;
+  return `
+    <article class="bridge-group">
+      <header>
+        <div>
+          <p class="bridge-eyebrow">${esc(group.eyebrow)}</p>
+          <h2>${esc(group.title)}</h2>
+          <p>${esc(group.desc)}</p>
+        </div>
+        <a class="bridge-section-link" href="${esc(group.href)}">Browse all ${allCount}</a>
+      </header>
+      <ul class="card-list bridge-list">
+        ${items.map(card => cardListItem(card, { showPill: false })).join("")}
+      </ul>
+    </article>
+  `;
+}
+
+function bridgePreviewCards(group) {
+  const selected = (group.cardIds || [])
+    .map(id => CARDS.find(card => card.id === id))
+    .filter(Boolean);
+  if (selected.length) return selected;
+  return CARDS.filter(card => card.level === group.level).slice(0, 6);
 }
 
 function renderMethodChoiceMap() {
@@ -1394,16 +1559,52 @@ function cardListItem(c, opts) {
 /* ---------- Search ---------- */
 
 function searchCards(q) {
-  const needle = q.toLowerCase();
+  const needle = normalizeSearchText(q);
   if (!needle) return [];
-  return [...SITE_PAGES, ...CARDS].filter(c => {
-    const sectionsText = (c.sections || []).map(s => {
-      const body = Array.isArray(s.body) ? s.body.flat().join(" ") : (s.body || "");
-      return (s.h || "") + " " + body;
-    }).join(" ");
-    const hay = [c.title, c.type, c.summary, (c.tags || []).join(" "), c.pathway || "", sectionsText].join(" ").toLowerCase();
-    return hay.includes(needle);
+  const tokens = needle.split(/\s+/).filter(token => token.length > 1 || ["p", "t"].includes(token));
+  return [...SITE_PAGES, ...CARDS]
+    .map(c => ({ card: c, score: searchScore(c, needle, tokens) }))
+    .filter(hit => hit.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .map(hit => hit.card);
+}
+
+function searchScore(c, needle, tokens) {
+  const title = normalizeSearchText(c.title);
+  const tags = normalizeSearchText((c.tags || []).join(" "));
+  const hay = searchableCardText(c);
+  const tokenMatch = tokens.length > 0 && tokens.every(token => hay.includes(token));
+  const exactMatch = hay.includes(needle);
+  if (!exactMatch && !tokenMatch) return 0;
+
+  let score = 1;
+  if (title === needle) score += 100;
+  else if (title.includes(needle)) score += 80;
+  if (tags.includes(needle)) score += 35;
+  if (exactMatch) score += 20;
+  tokens.forEach(token => {
+    if (title.includes(token)) score += 8;
+    else if (tags.includes(token)) score += 4;
   });
+  return score;
+}
+
+function searchableCardText(c) {
+  const sectionsText = (c.sections || []).map(s => {
+    const body = Array.isArray(s.body) ? s.body.flat().join(" ") : (s.body || "");
+    return (s.h || "") + " " + body;
+  }).join(" ");
+  return normalizeSearchText([c.title, c.type, c.summary, (c.tags || []).join(" "), c.pathway || "", sectionsText].join(" "));
+}
+
+function normalizeSearchText(text) {
+  return String(text || "")
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/\bversus\b/g, " vs ")
+    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 /* ---------- Helpers ---------- */
@@ -1553,7 +1754,13 @@ function isTypingTarget(target) {
 function buildMenu() {
   const list = document.getElementById("menuList");
   if (!list) return;
-  list.innerHTML = SECTIONS.map(s => {
+  const tools = MENU_TOOLS.map(tool => `
+    <li><a href="${esc(tool.href)}">
+      <span>${esc(tool.label)}</span>
+      <span class="count">${esc(tool.count)}</span>
+    </a></li>
+  `).join("");
+  const sections = SECTIONS.map(s => {
     const n = CARDS.filter(c => c.level === s.level).length;
     return `
       <li><a href="#/section/${s.slug}">
@@ -1562,6 +1769,7 @@ function buildMenu() {
       </a></li>
     `;
   }).join("");
+  list.innerHTML = tools + sections;
 }
 
 function wireMenu() {

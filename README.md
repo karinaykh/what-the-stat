@@ -25,14 +25,18 @@ what_the_stat_v2/
   app.js             hash router + view renderers
   data/
     cards-foundation.js
+    cards-decision.js
     cards-procedure.js
     cards-vocabulary.js
     cards-method.js
+    cards-level2.js
+    cards-python.js
     cards-comparison.js
     cards-visualization.js
     cards-data-shape.js
     cards-red-flag.js
     cards-claim.js
+    cards-transcript.js
     cards-example.js
   README.md
 ```
@@ -43,7 +47,7 @@ The schema is documented at the top of `data/cards-foundation.js`. Every card ac
 
 ## Status
 
-This first build seeds the new design with a small representative set of cards (about 12) across every layer so the layout and rendering can be evaluated on real content. Once the design feels right on phone and laptop, the full content corpus (~170 cards) from `../what_the_stat_content/` will be ported in.
+The main content corpus from `../what_the_stat_content/` has been ported into the v2 data files. Planning notes, templates, and source-anchor files are kept as working materials rather than card pages.
 
 Homepage cleanup pass:
 
@@ -57,9 +61,10 @@ Homepage cleanup pass:
 - Added At a Glance summaries to full card pages, with a direct link into the matching flashcard deck.
 - Added a printable one-page cheat sheet at `#/cheat-sheet` for method choice, data-type clues, interpretation, and claim wording.
 - Added the cheat sheet as a top navigation item and made search return tool pages such as Cheat Sheet and Method Map.
-- Added a homepage quick-tools strip for Cheat Sheet, Method Map, Flashcards, and Visuals.
+- Added a homepage quick-tools strip for Cheat Sheet, Method Map, Bridge Cards, and Flashcards.
 - Simplified the top navigation to Map, Sheet, Learn, and Flashcards so the search bar has more room.
 - Retagged descriptive vocabulary cards such as Mean vs Median so they appear in the Data Type pathway.
+- Added a Bridge Cards page at `#/bridges` so decision paths, method comparisons, procedures, data-shape checks, and red flags are discoverable as one judgment layer.
 
 Flashcard planning:
 
