@@ -645,6 +645,110 @@ a:hover { border-bottom-color: var(--accent); }
   margin-top: 24px;
 }
 
+/* ---------- Visualization gallery ---------- */
+
+.viz-choice-strip {
+  padding: 16px 0 18px;
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.viz-choice-strip ol {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.viz-choice-strip li {
+  display: grid;
+  gap: 2px;
+  padding: 10px 12px;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.viz-choice-strip strong {
+  color: var(--info);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.viz-choice-strip span {
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.viz-gallery {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.viz-tile {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+}
+
+.viz-tile:hover {
+  border-color: var(--info);
+  background: rgba(225, 236, 243, 0.36);
+}
+
+.viz-tile-graph .graph-svg {
+  border-color: var(--line-soft);
+}
+
+.viz-tile-copy {
+  display: grid;
+  gap: 4px;
+}
+
+.viz-tile-copy span {
+  color: var(--info);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.viz-tile-copy h2 {
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.viz-tile-copy p {
+  color: var(--ink-muted);
+  font-size: 14.5px;
+  line-height: 1.5;
+}
+
+.viz-tile-fallback {
+  display: grid;
+  place-items: center;
+  min-height: 128px;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  background: #FEFCF8;
+  color: var(--ink-faint);
+  font-size: 13px;
+  font-weight: 650;
+}
+
 /* ---------- Method choice map ---------- */
 
 .method-map-head {
@@ -1394,6 +1498,227 @@ a:hover { border-bottom-color: var(--accent); }
   font-size: 17px;
   line-height: 1.6;
   color: var(--ink-soft);
+}
+
+/* Mini evidence graphs */
+
+.graph-card {
+  display: grid;
+  gap: 14px;
+  max-width: var(--prose-max);
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.68);
+}
+
+.graph-copy {
+  display: grid;
+  gap: 5px;
+}
+
+.graph-kicker {
+  color: var(--info);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.graph-copy h2 {
+  margin-bottom: 0;
+}
+
+.graph-copy p {
+  color: var(--ink-muted);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.graph-figure {
+  margin: 0;
+}
+
+.graph-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  background: #FEFCF8;
+}
+
+.graph-figure figcaption {
+  margin-top: 8px;
+  color: var(--ink-muted);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.graph-reading-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.graph-reading-grid div {
+  display: grid;
+  gap: 4px;
+}
+
+.graph-reading-grid span {
+  color: var(--info);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.graph-reading-grid p,
+.graph-reading-grid li {
+  color: var(--ink-soft);
+  font-size: 14.5px;
+  line-height: 1.5;
+}
+
+.graph-reading-grid ul {
+  margin: 0;
+  max-width: none;
+  padding-left: 18px;
+}
+
+.graph-svg .g-axis,
+.graph-svg .g-grid {
+  stroke: #D8D2C4;
+  stroke-width: 1.2;
+}
+
+.graph-svg .g-zero {
+  stroke: #B8B1A3;
+  stroke-width: 1.1;
+  stroke-dasharray: 4 4;
+}
+
+.graph-svg .g-bar,
+.graph-svg .g-pos {
+  fill: #5F8F83;
+}
+
+.graph-svg .g-faint-bar,
+.graph-svg .g-neutral {
+  fill: #C9C1AE;
+}
+
+.graph-svg .g-neg {
+  fill: #B87965;
+}
+
+.graph-svg .g-dot {
+  fill: #2E5E7E;
+  stroke: #FEFCF8;
+  stroke-width: 1.4;
+}
+
+.graph-svg .g-dot.muted {
+  fill: #8A9C74;
+}
+
+.graph-svg .g-dot.warn {
+  fill: var(--warn);
+}
+
+.graph-svg .g-marker {
+  stroke-width: 1.8;
+  stroke-dasharray: 4 3;
+}
+
+.graph-svg .g-marker.median {
+  stroke: #4F7F74;
+}
+
+.graph-svg .g-marker.mean {
+  stroke: #A76548;
+}
+
+.graph-svg .g-median,
+.graph-svg .g-ci {
+  stroke: var(--ink);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.graph-svg .g-slope,
+.graph-svg .g-trend,
+.graph-svg .g-note-line {
+  fill: none;
+  stroke: #5F8F83;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.graph-svg .g-slope.down {
+  stroke: #B87965;
+}
+
+.graph-svg .g-trend,
+.graph-svg .g-note-line {
+  stroke: #2E5E7E;
+}
+
+.graph-svg .g-note-line {
+  stroke-width: 1.2;
+  stroke-dasharray: 3 3;
+}
+
+.graph-svg .g-label,
+.graph-svg .g-note,
+.graph-svg .g-cell-label {
+  font-family: var(--sans);
+  letter-spacing: 0;
+}
+
+.graph-svg .g-label {
+  fill: var(--ink-muted);
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.graph-svg .g-note {
+  fill: var(--ink-faint);
+  font-size: 10.5px;
+  font-weight: 500;
+}
+
+.graph-svg .g-label.mid,
+.graph-svg .g-note.mid,
+.graph-svg .g-cell-label {
+  text-anchor: middle;
+}
+
+.graph-svg .g-label.end {
+  text-anchor: end;
+}
+
+.graph-svg .g-cell-label {
+  fill: #FEFCF8;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.graph-svg .g-heat-1 {
+  fill: #B87965;
+}
+
+.graph-svg .g-heat-2 {
+  fill: #8A9C74;
+}
+
+.graph-svg .g-heat-3 {
+  fill: #4F7F74;
 }
 
 /* Tables (decision tables) */
@@ -2150,6 +2475,23 @@ a:hover { border-bottom-color: var(--accent); }
   .bridge-group header {
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: start;
+  }
+
+  .graph-card {
+    padding: 18px;
+  }
+
+  .graph-reading-grid {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .viz-choice-strip ol {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .viz-gallery {
+    grid-template-columns: 1fr 1fr;
   }
 
   .method-map-start ol {

@@ -55,6 +55,7 @@ window.WTS_VISUALIZATION_CARDS = [
     related: ["viz-two-groups", "viz-emergency-router"],
     sections: [
       { kind: "p", h: "Use this when", body: "You want to know what one numeric variable looks like.\n\nExamples:\n\n- active time in chatbot\n- total student words\n- rubric score\n- confidence scale score" },
+      { kind: "graph", graph: "distribution-skew" },
       { kind: "l", h: "Good visuals", body: [
         "histogram",
         "boxplot",
@@ -86,6 +87,7 @@ window.WTS_VISUALIZATION_CARDS = [
     related: ["independent-t", "mann-whitney", "viz-distribution"],
     sections: [
       { kind: "p", h: "Use this when", body: "You want to compare a score across two different groups.\n\nExamples:\n\n- Arm 1 vs Arm 2 performance\n- AI-feedback group vs comparison group\n- completers vs non-completers" },
+      { kind: "graph", graph: "two-groups-dot" },
       { kind: "l", h: "Good visuals", body: [
         "boxplot by group",
         "dot/strip plot by group",
@@ -117,6 +119,7 @@ window.WTS_VISUALIZATION_CARDS = [
     related: ["paired-t", "wilcoxon", "viz-emergency-router"],
     sections: [
       { kind: "p", h: "Use this when", body: "The same students have before and after measurements.\n\nExamples:\n\n- pre/post confidence\n- pre/post cognitive load\n- attempt 1 vs attempt 2 performance" },
+      { kind: "graph", graph: "pre-post-slope" },
       { kind: "l", h: "Good visuals", body: [
         "paired dot plot",
         "slope chart",
@@ -147,6 +150,7 @@ window.WTS_VISUALIZATION_CARDS = [
     related: ["viz-distribution", "viz-emergency-router"],
     sections: [
       { kind: "p", h: "Use this when", body: "You want to show how students responded to Likert items.\n\nExamples:\n\n- usefulness rating\n- confidence items\n- cognitive load items\n- perceived authenticity of AI patient" },
+      { kind: "graph", graph: "survey-stacked" },
       { kind: "l", h: "Good visuals", body: [
         "item-level percentage table",
         "stacked bar chart",
@@ -177,6 +181,7 @@ window.WTS_VISUALIZATION_CARDS = [
     related: ["viz-emergency-router"],
     sections: [
       { kind: "p", h: "Use this when", body: "You want to know whether two variables move together.\n\nExamples:\n\n- message count and performance score\n- active time and post confidence\n- pre confidence and chatbot completion" },
+      { kind: "graph", graph: "association-scatter" },
       { kind: "l", h: "Good visuals", body: [
         "scatterplot",
         "scatterplot with trend line",
@@ -208,6 +213,7 @@ window.WTS_VISUALIZATION_CARDS = [
     related: ["viz-emergency-router"],
     sections: [
       { kind: "p", h: "Use this when", body: "The outcome is yes/no or category membership.\n\nExamples:\n\n- completed chatbot or not\n- reached End Chat or not\n- performance-eligible or not\n- applied insight: yes/partial/no" },
+      { kind: "graph", graph: "binary-denominator" },
       { kind: "l", h: "Good visuals", body: [
         "bar chart with count and percentage",
         "stacked bar by group",
@@ -237,6 +243,7 @@ window.WTS_VISUALIZATION_CARDS = [
     related: ["viz-emergency-router"],
     sections: [
       { kind: "p", h: "Use this when", body: "You have rubric scores by domain, case, stage, or role.\n\nExamples:\n\n- PharSim case/domain heatmap\n- MD1140 communication/history/clinical reasoning scores\n- BMA5008 CEO/CFO/CPTO role scores" },
+      { kind: "graph", graph: "rubric-heatmap" },
       { kind: "l", h: "Good visuals", body: [
         "heatmap for many domains/cases",
         "grouped dot plot",
@@ -267,6 +274,7 @@ window.WTS_VISUALIZATION_CARDS = [
     related: ["viz-pre-post", "viz-emergency-router"],
     sections: [
       { kind: "p", h: "Use this when", body: "You want to show how engagement changes across attempts, stages, or sessions.\n\nExamples:\n\n- attempt 1 vs attempt 2 score\n- active time by case\n- message count across chatbot stages\n- reattempt trajectory" },
+      { kind: "graph", graph: "attempt-trajectory" },
       { kind: "l", h: "Good visuals", body: [
         "line plot for ordered attempts",
         "paired dot plot for attempt 1/attempt 2",
@@ -297,6 +305,7 @@ window.WTS_VISUALIZATION_CARDS = [
     related: ["viz-binary", "viz-emergency-router"],
     sections: [
       { kind: "p", h: "Use this when", body: "You coded transcript segments into categories.\n\nExamples:\n\n- evidence-supported reasoning: absent/partial/clear\n- chatbot issue type\n- severity level\n- applied insight: yes/partial/no" },
+      { kind: "graph", graph: "coded-category-bars" },
       { kind: "l", h: "Good visuals", body: [
         "frequency table",
         "bar chart",
@@ -328,6 +337,7 @@ window.WTS_VISUALIZATION_CARDS = [
     related: ["viz-emergency-router"],
     sections: [
       { kind: "p", h: "Use this when", body: "You have regression or model output and want a reader-friendly display.\n\nExamples:\n\n- post confidence predicted by pre confidence and chatbot score\n- completion predicted by pre confidence and arm\n- performance predicted by engagement" },
+      { kind: "graph", graph: "model-coefficients" },
       { kind: "l", h: "Good visuals", body: [
         "coefficient plot with confidence intervals",
         "predicted-value plot",
@@ -357,6 +367,7 @@ window.WTS_VISUALIZATION_CARDS = [
     source: "../what_the_stat_content/visualization_strategy_guide_v1.md",
     related: ["viz-thinking-path", "viz-caption-formula", "viz-emergency-router"],
     sections: [
+      { kind: "graph", graph: "mean-only-warning" },
       { kind: "l", h: "Pause if", body: [
         "the graph has no denominator",
         "a percentage is shown without `n`",

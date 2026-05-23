@@ -65,6 +65,7 @@ Homepage cleanup pass:
 - Simplified the top navigation to Map, Sheet, Learn, and Flashcards so the search bar has more room.
 - Retagged descriptive vocabulary cards such as Mean vs Median so they appear in the Data Type pathway.
 - Added a Bridge Cards page at `#/bridges` so decision paths, method comparisons, procedures, data-shape checks, and red flags are discoverable as one judgment layer.
+- Added evidence-focused mini graphs to visualization cards and turned `#/section/visualization` into a gallery for choosing graph types by research purpose.
 
 Flashcard planning:
 

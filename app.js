@@ -81,6 +81,19 @@ const SITE_PAGES = [
     ]
   },
   {
+    id: "page-visual-gallery",
+    href: "#/section/visualization",
+    title: "Visualization gallery",
+    type: "Tool",
+    level: "tool",
+    pathway: "Evidence -> Claim",
+    summary: "Actual mini graph examples that teach when to use each graph type, what to look for, and what claim the figure can support.",
+    tags: ["visualization", "visualisation", "graph", "chart", "gallery", "evidence", "plot", "when-to-use"],
+    sections: [
+      { kind: "p", h: "Search words", body: "visualization gallery graph chart plot when to use why evidence distribution scatterplot heatmap slope chart" }
+    ]
+  },
+  {
     id: "page-cheat-sheet",
     href: "#/cheat-sheet",
     title: "One-page cheat sheet",
@@ -154,6 +167,11 @@ const HOME_GUIDE_ROUTES = [
     href: "#/method-map",
     title: "Method choice map",
     desc: "Start from the research situation, data type, and row meaning before naming a test."
+  },
+  {
+    href: "#/section/visualization",
+    title: "Visualization gallery",
+    desc: "Actual graph shapes for distribution, comparison, change, relationship, denominator, heatmap, and model evidence."
   },
   {
     href: "#/section/decision-guide",
@@ -265,6 +283,108 @@ const BRIDGE_GROUPS = [
     ]
   }
 ];
+
+const GRAPH_EXAMPLES = {
+  "distribution-skew": {
+    title: "Skewed engagement time",
+    summary: "Use this when one numeric variable may be lopsided, clustered, or shaped by outliers.",
+    use: "One numeric outcome such as active time, word count, total score, or response duration.",
+    look: ["where most values sit", "whether the tail is long", "whether mean and median tell different stories", "possible outliers"],
+    why: "The graph helps you decide whether a mean is honest, or whether median and IQR would describe the typical case better.",
+    caption: "Most students cluster at lower active time, but a few long sessions pull the mean to the right.",
+    svg: graphDistributionSkew
+  },
+  "two-groups-dot": {
+    title: "Two independent groups on a score",
+    summary: "Use this when comparing a numeric outcome between two unrelated groups.",
+    use: "Different students in Arm A vs Arm B, completers vs non-completers, or intervention vs comparison group.",
+    look: ["group sizes", "center of each group", "overlap between groups", "spread and outliers inside each group"],
+    why: "A dot or box plot shows whether the difference is broad, tiny, or driven by just a few cases.",
+    caption: "Arm B has a higher center, but the groups still overlap. The graph keeps individual variation visible.",
+    svg: graphTwoGroupsDot
+  },
+  "pre-post-slope": {
+    title: "Same students before and after",
+    summary: "Use this when each student has two linked measurements.",
+    use: "Pre/post confidence, before/after survey score, attempt 1 vs attempt 2, or baseline vs final score.",
+    look: ["individual direction of change", "how consistent the change is", "students who moved against the overall trend", "whether a few students drive the mean change"],
+    why: "Paired graphs protect the key fact that the two points belong to the same person.",
+    caption: "Most students increase, but not everyone. The lines make mixed individual change visible.",
+    svg: graphPrePostSlope
+  },
+  "survey-stacked": {
+    title: "Survey item response pattern",
+    summary: "Use this when you want to show how students answered Likert-style items.",
+    use: "Individual survey items about usefulness, confidence, authenticity, cognitive load, or satisfaction.",
+    look: ["whether responses cluster high or low", "which items are polarizing", "whether items behave similarly", "whether a composite might hide item differences"],
+    why: "Stacked item bars show the response pattern before you collapse items into a scale score.",
+    caption: "Item 2 is more mixed than Item 1; a single average could hide that difference.",
+    svg: graphSurveyStacked
+  },
+  "association-scatter": {
+    title: "Association between two variables",
+    summary: "Use this before trusting a correlation or regression coefficient.",
+    use: "Message count vs performance, active time vs post confidence, or pre confidence vs completion probability.",
+    look: ["positive, negative, or weak pattern", "nonlinear shape", "clusters", "outliers that could control the result"],
+    why: "A scatterplot tells you whether the numerical association is believable.",
+    caption: "The overall pattern is positive, but one high-message case deserves a closer look.",
+    svg: graphAssociationScatter
+  },
+  "binary-denominator": {
+    title: "Completion or yes/no outcome",
+    summary: "Use this when the outcome is binary and the denominator matters.",
+    use: "Completed vs not completed, performance-eligible vs not eligible, correct vs incorrect, or reached End Chat vs not.",
+    look: ["count", "denominator", "percentage", "where participants drop out"],
+    why: "The chart prevents a percentage from floating away from the number of cases behind it.",
+    caption: "The percentage changes meaning as the denominator moves from attempted to completed to eligible.",
+    svg: graphBinaryDenominator
+  },
+  "rubric-heatmap": {
+    title: "Rubric domains across cases",
+    summary: "Use this when performance is split across domains, cases, roles, or stages.",
+    use: "PharSim case/domain scores, AI-patient rubric domains, or simulation role performance.",
+    look: ["stronger and weaker domains", "case-level patterns", "cells with low n", "whether raw scores have different maxima"],
+    why: "A heatmap is good for scanning many domain-case cells, as long as every cell means the same kind of percentage.",
+    caption: "Case 2 is weaker in reasoning; labels keep the heatmap interpretable rather than decorative.",
+    svg: graphRubricHeatmap
+  },
+  "attempt-trajectory": {
+    title: "Attempt or session trajectory",
+    summary: "Use this when engagement or performance unfolds over ordered attempts or time.",
+    use: "Attempt 1 to attempt 2 score, chatbot stages, repeated cases, or session-by-session engagement.",
+    look: ["direction of change", "how many students have repeated attempts", "consistent vs mixed trajectories", "decline as well as improvement"],
+    why: "Trajectory plots show process evidence without pretending it is automatically learning evidence.",
+    caption: "Several students improve on later attempts, while one drops; process patterns need careful labels.",
+    svg: graphAttemptTrajectory
+  },
+  "coded-category-bars": {
+    title: "Coded transcript categories",
+    summary: "Use this when transcript segments or messages have been coded into categories.",
+    use: "Issue type, reasoning quality, help-seeking category, severity level, or applied insight code.",
+    look: ["most common categories", "where categories cluster", "whether bars use all reviewed units or only flagged units", "mutually exclusive vs multi-label coding"],
+    why: "Category graphs are only meaningful when the coding unit and denominator are visible.",
+    caption: "Issue types differ by case, but the note says the denominator is reviewed bot messages.",
+    svg: graphCodedCategoryBars
+  },
+  "model-coefficients": {
+    title: "Model estimates with uncertainty",
+    summary: "Use this when a regression or model includes several predictors.",
+    use: "Post confidence predicted by pre confidence and chatbot score, or completion predicted by arm and prior score.",
+    look: ["direction of each estimate", "size of the estimate", "confidence interval width", "which intervals cross zero"],
+    why: "Coefficient plots help readers interpret the model without drowning in a table of numbers.",
+    caption: "The chatbot score estimate is positive, but the interval shows uncertainty around the size of the association.",
+    svg: graphModelCoefficients
+  },
+  "mean-only-warning": {
+    title: "Mean-only bar chart warning",
+    summary: "Use this as a red flag: a neat bar can hide skew, outliers, paired change, or denominator problems.",
+    use: "Any chart that only shows a mean, percentage, or p-value without spread, n, or row meaning.",
+    look: ["hidden spread", "missing denominator", "whether raw points would change the story", "claim stronger than the graph"],
+    why: "The safer graph makes the evidence visible, not just the summary statistic.",
+    caption: "The two means look tidy, but the raw points show overlap and an outlier.",
+    svg: graphMeanOnlyWarning
+  }
+};
 
 const METHOD_CHOICE_MAP = [
   {
@@ -1322,6 +1442,7 @@ function renderSection(slug) {
   const sec = SECTIONS.find(s => s.slug === slug);
   if (!sec) return renderNotFound();
   const items = CARDS.filter(c => c.level === sec.level);
+  if (slug === "visualization") return renderVisualizationSection(sec, items);
   return `
     <nav class="crumb"><a href="#/">Home</a> · ${esc(sec.label)}</nav>
     <header class="page-head">
@@ -1333,6 +1454,44 @@ function renderSection(slug) {
       : `<ul class="card-list">
           ${items.map(c => cardListItem(c, { showPill: false })).join("")}
         </ul>`}
+  `;
+}
+
+function renderVisualizationSection(sec, items) {
+  return `
+    <nav class="crumb"><a href="#/">Home</a> · ${esc(sec.label)}</nav>
+    <header class="page-head">
+      <p class="home-kicker">Graph as evidence</p>
+      <h1>${esc(sec.label)}</h1>
+      <p class="lede">Do not start with what looks nice. Start with what the reader needs to see: distribution, comparison, change, relationship, denominator, rubric pattern, transcript code pattern, or model estimate.</p>
+    </header>
+    <section class="viz-choice-strip" aria-label="Visualization choice order">
+      <ol>
+        <li><strong>Claim</strong><span>What sentence do I want to support?</span></li>
+        <li><strong>Evidence</strong><span>What pattern must be visible?</span></li>
+        <li><strong>Rows</strong><span>What does one dot, bar, or cell mean?</span></li>
+        <li><strong>Graph</strong><span>Which form shows that pattern least deceptively?</span></li>
+        <li><strong>Limit</strong><span>What can this figure not prove?</span></li>
+      </ol>
+    </section>
+    <section class="viz-gallery" aria-label="Visualization gallery">
+      ${items.map(renderVisualizationTile).join("")}
+    </section>
+  `;
+}
+
+function renderVisualizationTile(card) {
+  const graphBlock = (card.sections || []).find(section => section.kind === "graph");
+  const graph = graphBlock ? GRAPH_EXAMPLES[graphBlock.graph] : null;
+  return `
+    <a class="viz-tile" href="#/card/${esc(card.id)}">
+      ${graph ? `<div class="viz-tile-graph">${graph.svg()}</div>` : `<div class="viz-tile-fallback">Read</div>`}
+      <div class="viz-tile-copy">
+        <span>${esc(card.type || "Visualization")}</span>
+        <h2>${esc(card.title)}</h2>
+        <p>${esc(graph ? graph.use : card.summary || "")}</p>
+      </div>
+    </a>
   `;
 }
 
@@ -1494,6 +1653,8 @@ function renderBlock(b) {
       return `<section>${b.h ? `<h2>${esc(b.h)}</h2>` : ""}<ol>${(b.body || []).map(li => `<li>${inline(li)}</li>`).join("")}</ol></section>`;
     case "code":
       return `<section>${b.h ? `<h2>${esc(b.h)}</h2>` : ""}<pre class="codeblock"><code>${esc(b.body || "")}</code></pre></section>`;
+    case "graph":
+      return renderGraphBlock(b);
     case "t":
       return renderTable(b);
     case "compare":
@@ -1507,6 +1668,269 @@ function renderBlock(b) {
     default:
       return "";
   }
+}
+
+function renderGraphBlock(b) {
+  const graph = GRAPH_EXAMPLES[b.graph];
+  if (!graph) return "";
+  return `
+    <section class="graph-card" aria-label="${esc(graph.title)}">
+      <div class="graph-copy">
+        <p class="graph-kicker">Mini evidence graph</p>
+        <h2>${esc(b.h || graph.title)}</h2>
+        <p>${inline(graph.summary)}</p>
+      </div>
+      <figure class="graph-figure">
+        ${graph.svg()}
+        <figcaption>${inline(graph.caption)}</figcaption>
+      </figure>
+      <div class="graph-reading-grid">
+        <div>
+          <span>Use when</span>
+          <p>${inline(graph.use)}</p>
+        </div>
+        <div>
+          <span>Look for</span>
+          <ul>${graph.look.map(item => `<li>${inline(item)}</li>`).join("")}</ul>
+        </div>
+        <div>
+          <span>Why this graph</span>
+          <p>${inline(graph.why)}</p>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function graphSvg(label, inner) {
+  return `
+    <svg class="graph-svg" viewBox="0 0 320 190" role="img" aria-label="${esc(label)}" focusable="false">
+      <title>${esc(label)}</title>
+      ${inner}
+    </svg>
+  `;
+}
+
+function graphDistributionSkew() {
+  const bars = [
+    [36, 124, 16, 36], [56, 92, 16, 68], [76, 64, 16, 96],
+    [96, 76, 16, 84], [116, 102, 16, 58], [136, 124, 16, 36],
+    [156, 138, 16, 22], [176, 148, 16, 12], [196, 154, 16, 6]
+  ].map(([x, y, w, h]) => `<rect class="g-bar" x="${x}" y="${y}" width="${w}" height="${h}" rx="2"></rect>`).join("");
+  return graphSvg("Histogram showing a right-skewed distribution with median left of mean", `
+    <line class="g-axis" x1="28" y1="160" x2="230" y2="160"></line>
+    <line class="g-axis" x1="28" y1="42" x2="28" y2="160"></line>
+    ${bars}
+    <line class="g-marker median" x1="94" y1="50" x2="94" y2="164"></line>
+    <line class="g-marker mean" x1="134" y1="50" x2="134" y2="164"></line>
+    <text class="g-label" x="75" y="34">median</text>
+    <text class="g-label" x="122" y="34">mean</text>
+    <text class="g-label" x="58" y="181">active time</text>
+    <text class="g-note" x="206" y="82">long tail</text>
+    <path class="g-note-line" d="M205 88 C218 100, 222 123, 210 148"></path>
+  `);
+}
+
+function graphTwoGroupsDot() {
+  const dotsA = [[72, 132], [78, 118], [68, 104], [84, 96], [75, 86], [88, 74], [66, 146]];
+  const dotsB = [[180, 118], [190, 104], [174, 94], [198, 82], [184, 72], [202, 62], [172, 134]];
+  const dots = [...dotsA.map(([x, y]) => `<circle class="g-dot muted" cx="${x}" cy="${y}" r="4"></circle>`),
+    ...dotsB.map(([x, y]) => `<circle class="g-dot" cx="${x}" cy="${y}" r="4"></circle>`)].join("");
+  return graphSvg("Dot plot comparing two independent groups with overlap and spread", `
+    <line class="g-axis" x1="40" y1="158" x2="226" y2="158"></line>
+    <line class="g-axis" x1="40" y1="44" x2="40" y2="158"></line>
+    <text class="g-label" x="58" y="178">Arm A</text>
+    <text class="g-label" x="166" y="178">Arm B</text>
+    <text class="g-label" transform="translate(18 122) rotate(-90)">score</text>
+    <line class="g-median" x1="58" y1="100" x2="96" y2="100"></line>
+    <line class="g-median" x1="166" y1="86" x2="204" y2="86"></line>
+    ${dots}
+    <text class="g-note" x="228" y="80">higher center,</text>
+    <text class="g-note" x="228" y="96">still overlap</text>
+  `);
+}
+
+function graphPrePostSlope() {
+  const pairs = [
+    [116, 88], [132, 104], [108, 76], [126, 126], [98, 72], [142, 116], [118, 90]
+  ];
+  const lines = pairs.map(([pre, post], idx) => {
+    const cls = post < pre ? "g-slope down" : "g-slope";
+    const y1 = pre;
+    const y2 = post;
+    const delay = idx % 3;
+    return `<path class="${cls} d${delay}" d="M82 ${y1} L194 ${y2}"></path><circle class="g-dot muted" cx="82" cy="${y1}" r="4"></circle><circle class="g-dot" cx="194" cy="${y2}" r="4"></circle>`;
+  }).join("");
+  return graphSvg("Slope chart showing paired pre and post change for the same students", `
+    <line class="g-axis" x1="56" y1="160" x2="220" y2="160"></line>
+    <line class="g-axis" x1="56" y1="48" x2="56" y2="160"></line>
+    <text class="g-label" x="67" y="180">pre</text>
+    <text class="g-label" x="176" y="180">post</text>
+    <text class="g-note" x="224" y="84">mixed individual</text>
+    <text class="g-note" x="224" y="100">change</text>
+    ${lines}
+  `);
+}
+
+function graphSurveyStacked() {
+  const rows = [
+    ["Useful", 30, 108, 78],
+    ["Confident", 50, 88, 68],
+    ["Overload", 86, 74, 46]
+  ];
+  const rowSvg = rows.map(([label, neg, neutral, pos], idx) => {
+    const y = 58 + idx * 38;
+    return `
+      <text class="g-label end" x="72" y="${y + 14}">${label}</text>
+      <rect class="g-neg" x="${160 - neg}" y="${y}" width="${neg}" height="20" rx="2"></rect>
+      <rect class="g-neutral" x="160" y="${y}" width="${neutral}" height="20" rx="2"></rect>
+      <rect class="g-pos" x="${160 + neutral}" y="${y}" width="${pos}" height="20" rx="2"></rect>
+    `;
+  }).join("");
+  return graphSvg("Stacked survey item bars showing response distributions by item", `
+    <line class="g-zero" x1="160" y1="44" x2="160" y2="160"></line>
+    ${rowSvg}
+    <text class="g-note" x="84" y="32">disagree</text>
+    <text class="g-note" x="150" y="32">neutral</text>
+    <text class="g-note" x="220" y="32">agree</text>
+  `);
+}
+
+function graphAssociationScatter() {
+  const pts = [[58, 134], [72, 126], [86, 116], [102, 124], [118, 106], [134, 98], [150, 92], [166, 78], [182, 72], [212, 48]];
+  const dots = pts.map(([x, y], idx) => `<circle class="g-dot ${idx === pts.length - 1 ? "warn" : ""}" cx="${x}" cy="${y}" r="4"></circle>`).join("");
+  return graphSvg("Scatterplot with a positive association and one possible outlier", `
+    <line class="g-axis" x1="42" y1="156" x2="230" y2="156"></line>
+    <line class="g-axis" x1="42" y1="42" x2="42" y2="156"></line>
+    <path class="g-trend" d="M54 136 C100 118, 148 90, 218 58"></path>
+    ${dots}
+    <text class="g-label" x="78" y="178">message count</text>
+    <text class="g-label" transform="translate(18 128) rotate(-90)">performance</text>
+    <text class="g-note" x="220" y="44">check outlier</text>
+  `);
+}
+
+function graphBinaryDenominator() {
+  const bars = [
+    ["Attempted", 168, 92, "n=84"],
+    ["Completed", 128, 132, "n=66"],
+    ["Eligible", 96, 172, "n=49"]
+  ].map(([label, h, x, n]) => `
+    <rect class="g-bar" x="${x}" y="${160 - h}" width="28" height="${h}" rx="3"></rect>
+    <text class="g-label mid" x="${x + 14}" y="178">${label}</text>
+    <text class="g-note mid" x="${x + 14}" y="${152 - h}">${n}</text>
+  `).join("");
+  return graphSvg("Bar chart showing counts and denominators for binary completion stages", `
+    <line class="g-axis" x1="62" y1="160" x2="228" y2="160"></line>
+    <line class="g-axis" x1="62" y1="36" x2="62" y2="160"></line>
+    ${bars}
+    <text class="g-note" x="226" y="68">denominator</text>
+    <text class="g-note" x="226" y="84">changes</text>
+  `);
+}
+
+function graphRubricHeatmap() {
+  const cells = [
+    [92, 46, "g-heat-3", "78"], [134, 46, "g-heat-2", "64"], [176, 46, "g-heat-3", "82"], [218, 46, "g-heat-1", "55"],
+    [92, 82, "g-heat-2", "69"], [134, 82, "g-heat-1", "48"], [176, 82, "g-heat-2", "61"], [218, 82, "g-heat-1", "52"],
+    [92, 118, "g-heat-3", "84"], [134, 118, "g-heat-2", "70"], [176, 118, "g-heat-2", "67"], [218, 118, "g-heat-3", "79"]
+  ].map(([x, y, cls, label]) => `<rect class="${cls}" x="${x}" y="${y}" width="34" height="28" rx="3"></rect><text class="g-cell-label" x="${x + 17}" y="${y + 18}">${label}</text>`).join("");
+  return graphSvg("Heatmap of rubric percentage scores across cases and domains", `
+    <text class="g-label end" x="80" y="64">Case 1</text>
+    <text class="g-label end" x="80" y="100">Case 2</text>
+    <text class="g-label end" x="80" y="136">Case 3</text>
+    <text class="g-label mid" x="109" y="34">Dx</text>
+    <text class="g-label mid" x="151" y="34">Reason</text>
+    <text class="g-label mid" x="193" y="34">Plan</text>
+    <text class="g-label mid" x="235" y="34">Comm</text>
+    ${cells}
+    <text class="g-note" x="94" y="172">percent of available rubric points</text>
+  `);
+}
+
+function graphAttemptTrajectory() {
+  const lines = [
+    "M62 124 L136 100 L210 76",
+    "M62 136 L136 118 L210 92",
+    "M62 102 L136 82 L210 68",
+    "M62 88 L136 96 L210 110",
+    "M62 146 L136 132 L210 122"
+  ].map((d, idx) => `<path class="g-slope d${idx % 3}" d="${d}"></path>`).join("");
+  return graphSvg("Line plot showing repeated attempt trajectories across three attempts", `
+    <line class="g-axis" x1="42" y1="158" x2="230" y2="158"></line>
+    <line class="g-axis" x1="42" y1="42" x2="42" y2="158"></line>
+    ${lines}
+    <text class="g-label mid" x="62" y="178">A1</text>
+    <text class="g-label mid" x="136" y="178">A2</text>
+    <text class="g-label mid" x="210" y="178">A3</text>
+    <text class="g-note" x="222" y="108">not all</text>
+    <text class="g-note" x="222" y="124">improve</text>
+  `);
+}
+
+function graphCodedCategoryBars() {
+  const groups = [
+    ["Case 1", 74, 44, 24],
+    ["Case 2", 42, 70, 34],
+    ["Case 3", 58, 32, 50]
+  ];
+  const bars = groups.map(([label, a, b, c], idx) => {
+    const x = 78 + idx * 58;
+    return `
+      <text class="g-label mid" x="${x + 14}" y="178">${label}</text>
+      <rect class="g-pos" x="${x}" y="${160 - a}" width="10" height="${a}" rx="2"></rect>
+      <rect class="g-neutral" x="${x + 12}" y="${160 - b}" width="10" height="${b}" rx="2"></rect>
+      <rect class="g-neg" x="${x + 24}" y="${160 - c}" width="10" height="${c}" rx="2"></rect>
+    `;
+  }).join("");
+  return graphSvg("Grouped bar chart showing coded transcript categories by case", `
+    <line class="g-axis" x1="50" y1="160" x2="230" y2="160"></line>
+    <line class="g-axis" x1="50" y1="42" x2="50" y2="160"></line>
+    ${bars}
+    <rect class="g-pos" x="238" y="56" width="9" height="9"></rect><text class="g-note" x="252" y="64">reasoning</text>
+    <rect class="g-neutral" x="238" y="74" width="9" height="9"></rect><text class="g-note" x="252" y="82">hinting</text>
+    <rect class="g-neg" x="238" y="92" width="9" height="9"></rect><text class="g-note" x="252" y="100">issue</text>
+  `);
+}
+
+function graphModelCoefficients() {
+  const rows = [
+    ["Pre score", 82, 132, 108],
+    ["Chatbot", 142, 216, 176],
+    ["Active time", 96, 178, 134]
+  ].map(([label, low, high, est], idx) => {
+    const y = 62 + idx * 42;
+    return `
+      <text class="g-label end" x="78" y="${y + 4}">${label}</text>
+      <line class="g-ci" x1="${low}" y1="${y}" x2="${high}" y2="${y}"></line>
+      <circle class="g-dot" cx="${est}" cy="${y}" r="5"></circle>
+    `;
+  }).join("");
+  return graphSvg("Coefficient plot showing model estimates and confidence intervals", `
+    <line class="g-axis" x1="82" y1="158" x2="226" y2="158"></line>
+    <line class="g-zero" x1="132" y1="36" x2="132" y2="158"></line>
+    ${rows}
+    <text class="g-label mid" x="132" y="178">0</text>
+    <text class="g-note" x="86" y="32">negative</text>
+    <text class="g-note" x="178" y="32">positive</text>
+  `);
+}
+
+function graphMeanOnlyWarning() {
+  const pointsA = [[68, 132], [78, 116], [88, 112], [98, 108], [108, 60]];
+  const pointsB = [[164, 124], [174, 116], [184, 104], [194, 96], [204, 88]];
+  const points = [...pointsA.map(([x, y]) => `<circle class="g-dot muted" cx="${x}" cy="${y}" r="3.8"></circle>`),
+    ...pointsB.map(([x, y]) => `<circle class="g-dot" cx="${x}" cy="${y}" r="3.8"></circle>`)].join("");
+  return graphSvg("Comparison of a mean-only bar chart and raw point display", `
+    <rect class="g-faint-bar" x="70" y="92" width="34" height="68" rx="3"></rect>
+    <rect class="g-faint-bar" x="166" y="86" width="34" height="74" rx="3"></rect>
+    <line class="g-axis" x1="52" y1="160" x2="224" y2="160"></line>
+    ${points}
+    <text class="g-label mid" x="87" y="178">A</text>
+    <text class="g-label mid" x="183" y="178">B</text>
+    <text class="g-note" x="224" y="70">raw points</text>
+    <text class="g-note" x="224" y="86">change the read</text>
+  `);
 }
 
 function renderTable(b) {
