@@ -59,6 +59,7 @@ Homepage cleanup pass:
 - Added the cheat sheet as a top navigation item and made search return tool pages such as Cheat Sheet and Method Map.
 - Added a homepage quick-tools strip for Cheat Sheet, Method Map, Flashcards, and Visuals.
 - Simplified the top navigation to Map, Sheet, Learn, and Flashcards so the search bar has more room.
+- Retagged descriptive vocabulary cards such as Mean vs Median so they appear in the Data Type pathway.
 
 Flashcard planning:
 
