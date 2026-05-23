@@ -1221,7 +1221,8 @@ a:hover { border-bottom-color: var(--accent); }
 
 .card-body p + p { margin-top: 12px; }
 
-.card-body ul {
+.card-body ul,
+.card-body ol {
   margin: 6px 0 0;
   padding-left: 22px;
   max-width: var(--prose-max);
@@ -1235,6 +1236,19 @@ a:hover { border-bottom-color: var(--accent); }
 }
 
 .card-body li::marker { color: var(--ink-faint); }
+
+.card-body ol {
+  padding-left: 28px;
+}
+
+.card-body ol li {
+  padding-left: 4px;
+}
+
+.card-body ol li::marker {
+  color: var(--info);
+  font-weight: 700;
+}
 
 /* Inline code spans (variable names, short snippets in prose) */
 .card-body code,

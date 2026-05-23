@@ -1325,6 +1325,8 @@ function renderBlock(b) {
       return `<section>${b.h ? `<h2>${esc(b.h)}</h2>` : ""}${proseHtml(b.body)}</section>`;
     case "l":
       return `<section>${b.h ? `<h2>${esc(b.h)}</h2>` : ""}<ul>${(b.body || []).map(li => `<li>${inline(li)}</li>`).join("")}</ul></section>`;
+    case "ol":
+      return `<section>${b.h ? `<h2>${esc(b.h)}</h2>` : ""}<ol>${(b.body || []).map(li => `<li>${inline(li)}</li>`).join("")}</ol></section>`;
     case "code":
       return `<section>${b.h ? `<h2>${esc(b.h)}</h2>` : ""}<pre class="codeblock"><code>${esc(b.body || "")}</code></pre></section>`;
     case "t":

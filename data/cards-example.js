@@ -723,7 +723,16 @@ window.WTS_EXAMPLE_CARDS = [
     related: ["ex-common-patterns", "ex-big-linking-question", "claim", "evidence"],
     sections: [
       { kind: "p", h: "When you bring a new project example, ask", body: "When you bring a new project example, ask:" },
-      { kind: "code", h: "Eight questions", body: "1. What is the learning/intervention claim I want to make?\n2. What evidence would actually support that claim?\n3. What unit of analysis should each variable use?\n4. Which variables are self-report, behavior, performance, or coded judgment?\n5. Which variables happen before, during, and after the intervention?\n6. What missing data or denominator problem could distort the answer?\n7. What can I responsibly claim if the result is statistically significant?\n8. What can I responsibly claim if it is not significant?" }
+      { kind: "ol", h: "Eight questions", body: [
+        "What is the learning/intervention claim I want to make?",
+        "What evidence would actually support that claim?",
+        "What unit of analysis should each variable use?",
+        "Which variables are self-report, behavior, performance, or coded judgment?",
+        "Which variables happen before, during, and after the intervention?",
+        "What missing data or denominator problem could distort the answer?",
+        "What can I responsibly claim if the result is statistically significant?",
+        "What can I responsibly claim if it is not significant?"
+      ]}
     ]
   }
 ];

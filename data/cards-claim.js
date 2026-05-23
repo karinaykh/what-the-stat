@@ -392,7 +392,16 @@ window.WTS_CLAIM_CARDS = [
     related: ["claim", "claim-builder-path", "claim-overclaim-repair", "claim-scope-phrases"],
     sections: [
       { kind: "p", h: "Before writing a result, ask", body: "Before writing a result, ask:" },
-      { kind: "code", body: "1. Did I name the analytic sample?\n2. Did I name the denominator?\n3. Did I report direction and size?\n4. Did I report uncertainty or p-value where relevant?\n5. Did I distinguish engagement, performance, perception, and learning?\n6. Did I avoid causal wording unless the design supports it?\n7. Did I explain what the result does not show?\n8. Did I write the result in plain language first?" }
+      { kind: "ol", body: [
+        "Did I name the analytic sample?",
+        "Did I name the denominator?",
+        "Did I report direction and size?",
+        "Did I report uncertainty or p-value where relevant?",
+        "Did I distinguish engagement, performance, perception, and learning?",
+        "Did I avoid causal wording unless the design supports it?",
+        "Did I explain what the result does not show?",
+        "Did I write the result in plain language first?"
+      ]}
     ]
   }
 ];
