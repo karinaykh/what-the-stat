@@ -1484,8 +1484,8 @@ function renderVisualizationTile(card) {
   const graphBlock = (card.sections || []).find(section => section.kind === "graph");
   const graph = graphBlock ? GRAPH_EXAMPLES[graphBlock.graph] : null;
   return `
-    <a class="viz-tile" href="#/card/${esc(card.id)}">
-      ${graph ? `<div class="viz-tile-graph">${graph.svg()}</div>` : `<div class="viz-tile-fallback">Read</div>`}
+    <a class="viz-tile ${graph ? "" : "no-graph"}" href="#/card/${esc(card.id)}">
+      ${graph ? `<div class="viz-tile-graph">${graph.svg()}</div>` : ""}
       <div class="viz-tile-copy">
         <span>${esc(card.type || "Visualization")}</span>
         <h2>${esc(card.title)}</h2>
@@ -1773,6 +1773,8 @@ function graphPrePostSlope() {
 }
 
 function graphSurveyStacked() {
+  const center = 154;
+  const scale = 0.55;
   const rows = [
     ["Useful", 30, 108, 78],
     ["Confident", 50, 88, 68],
@@ -1780,19 +1782,22 @@ function graphSurveyStacked() {
   ];
   const rowSvg = rows.map(([label, neg, neutral, pos], idx) => {
     const y = 58 + idx * 38;
+    const negW = Math.round(neg * scale);
+    const neutralW = Math.round(neutral * scale);
+    const posW = Math.round(pos * scale);
     return `
       <text class="g-label end" x="72" y="${y + 14}">${label}</text>
-      <rect class="g-neg" x="${160 - neg}" y="${y}" width="${neg}" height="20" rx="2"></rect>
-      <rect class="g-neutral" x="160" y="${y}" width="${neutral}" height="20" rx="2"></rect>
-      <rect class="g-pos" x="${160 + neutral}" y="${y}" width="${pos}" height="20" rx="2"></rect>
+      <rect class="g-neg" x="${center - negW}" y="${y}" width="${negW}" height="20" rx="2"></rect>
+      <rect class="g-neutral" x="${center}" y="${y}" width="${neutralW}" height="20" rx="2"></rect>
+      <rect class="g-pos" x="${center + neutralW}" y="${y}" width="${posW}" height="20" rx="2"></rect>
     `;
   }).join("");
   return graphSvg("Stacked survey item bars showing response distributions by item", `
-    <line class="g-zero" x1="160" y1="44" x2="160" y2="160"></line>
+    <line class="g-zero" x1="${center}" y1="44" x2="${center}" y2="160"></line>
     ${rowSvg}
     <text class="g-note" x="84" y="32">disagree</text>
-    <text class="g-note" x="150" y="32">neutral</text>
-    <text class="g-note" x="220" y="32">agree</text>
+    <text class="g-note" x="148" y="32">neutral</text>
+    <text class="g-note" x="222" y="32">agree</text>
   `);
 }
 
@@ -1811,21 +1816,28 @@ function graphAssociationScatter() {
 }
 
 function graphBinaryDenominator() {
-  const bars = [
-    ["Attempted", 168, 92, "n=84"],
-    ["Completed", 128, 132, "n=66"],
-    ["Eligible", 96, 172, "n=49"]
-  ].map(([label, h, x, n]) => `
-    <rect class="g-bar" x="${x}" y="${160 - h}" width="28" height="${h}" rx="3"></rect>
-    <text class="g-label mid" x="${x + 14}" y="178">${label}</text>
-    <text class="g-note mid" x="${x + 14}" y="${152 - h}">${n}</text>
-  `).join("");
+  const barX = 104;
+  const maxWidth = 144;
+  const rows = [
+    ["Attempted", 84],
+    ["Completed", 66],
+    ["Eligible", 49]
+  ];
+  const bars = rows.map(([label, n], idx) => {
+    const y = 52 + idx * 38;
+    const w = Math.round((n / 84) * maxWidth);
+    return `
+      <text class="g-label end" x="92" y="${y + 15}">${label}</text>
+      <rect class="g-bar" x="${barX}" y="${y}" width="${w}" height="22" rx="4"></rect>
+      <text class="g-note" x="${barX + w + 8}" y="${y + 15}">n=${n}</text>
+    `;
+  }).join("");
   return graphSvg("Bar chart showing counts and denominators for binary completion stages", `
-    <line class="g-axis" x1="62" y1="160" x2="228" y2="160"></line>
-    <line class="g-axis" x1="62" y1="36" x2="62" y2="160"></line>
+    <text class="g-note" x="104" y="30">keep n visible</text>
     ${bars}
-    <text class="g-note" x="226" y="68">denominator</text>
-    <text class="g-note" x="226" y="84">changes</text>
+    <path class="g-note-line" d="M278 62 C292 84, 286 118, 250 140"></path>
+    <text class="g-note" x="246" y="156">denominator</text>
+    <text class="g-note" x="246" y="168">shrinks</text>
   `);
 }
 

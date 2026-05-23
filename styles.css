@@ -260,6 +260,10 @@ body {
   padding: 24px 18px 96px;
 }
 
+.page:focus {
+  outline: none;
+}
+
 .page > section + section {
   margin-top: 36px;
 }
@@ -707,6 +711,10 @@ a:hover { border-bottom-color: var(--accent); }
 .viz-tile:hover {
   border-color: var(--info);
   background: rgba(225, 236, 243, 0.36);
+}
+
+.viz-tile.no-graph {
+  padding: 16px;
 }
 
 .viz-tile-graph .graph-svg {
@@ -1683,13 +1691,13 @@ a:hover { border-bottom-color: var(--accent); }
 
 .graph-svg .g-label {
   fill: var(--ink-muted);
-  font-size: 11px;
+  font-size: 8.5px;
   font-weight: 650;
 }
 
 .graph-svg .g-note {
   fill: var(--ink-faint);
-  font-size: 10.5px;
+  font-size: 8px;
   font-weight: 500;
 }
 
@@ -1705,7 +1713,7 @@ a:hover { border-bottom-color: var(--accent); }
 
 .graph-svg .g-cell-label {
   fill: #FEFCF8;
-  font-size: 10px;
+  font-size: 8px;
   font-weight: 700;
 }
 
