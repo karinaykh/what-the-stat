@@ -423,16 +423,16 @@ function syncPrimaryNav(route) {
   if (route.kind === "method-map") active = "guide";
   if (route.kind === "cheat-sheet") active = "sheet";
   if (route.kind === "flashcards") active = "flashcards";
-  if (route.kind === "search") active = "bank";
+  if (route.kind === "search") active = "learn";
   if (route.kind === "section") {
     if (route.slug === "decision-guide") active = "guide";
     else if (["foundation", "procedure", "vocabulary", "comparison", "visualization", "data-shape", "red-flag", "claim", "transcript", "example", "python", "level2"].includes(route.slug)) active = "learn";
-    else if (route.slug === "method") active = "bank";
+    else if (route.slug === "method") active = "learn";
   }
   if (route.kind === "card") {
     const card = CARDS.find(c => c.id === route.id);
     if (card && card.level === "decision-guide") active = "guide";
-    else if (card && ["method", "level2"].includes(card.level)) active = "bank";
+    else if (card && ["method", "level2"].includes(card.level)) active = "learn";
     else if (card) active = "learn";
   }
 

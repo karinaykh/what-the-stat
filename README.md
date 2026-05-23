@@ -58,6 +58,7 @@ Homepage cleanup pass:
 - Added a printable one-page cheat sheet at `#/cheat-sheet` for method choice, data-type clues, interpretation, and claim wording.
 - Added the cheat sheet as a top navigation item and made search return tool pages such as Cheat Sheet and Method Map.
 - Added a homepage quick-tools strip for Cheat Sheet, Method Map, Flashcards, and Visuals.
+- Simplified the top navigation to Map, Sheet, Learn, and Flashcards so the search bar has more room.
 
 Flashcard planning:
 
