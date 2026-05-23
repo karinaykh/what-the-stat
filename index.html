@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#FBFAF5" />
+    <title>What the STAT</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a class="brand" href="#/">What the STAT</a>
+        <div class="search">
+          <label for="topSearch" class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Search</label>
+          <input id="topSearch" type="search" placeholder="Search…" autocomplete="off" />
+        </div>
+        <nav class="primary-nav" aria-label="Primary navigation">
+          <a href="#/" data-nav="home">Start</a>
+          <a href="#/method-map" data-nav="guide">Map</a>
+          <a href="#/cheat-sheet" data-nav="sheet">Sheet</a>
+          <a href="#/section/foundation" data-nav="learn">Learn</a>
+          <a href="#/section/method" data-nav="bank">Bank</a>
+          <a href="#/flashcards" data-nav="flashcards">Flashcards</a>
+        </nav>
+        <button id="menuBtn" class="menu-btn" aria-expanded="false" aria-controls="menuPanel" aria-haspopup="true">
+          <span class="menu-label">Library</span>
+          <svg class="chev" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+            <path d="M2 4 L5 7 L8 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <div id="menuPanel" class="menu-panel" hidden>
+        <div class="menu-inner">
+          <ul id="menuList" class="menu-list" role="list"></ul>
+        </div>
+      </div>
+    </header>
+
+    <main id="view" class="page" tabindex="-1"></main>
+
+    <!-- Data files load globals window.WTS_* before app.js -->
+    <script src="data/cards-foundation.js"></script>
+    <script src="data/cards-decision.js"></script>
+    <script src="data/cards-procedure.js"></script>
+    <script src="data/cards-vocabulary.js"></script>
+    <script src="data/cards-method.js"></script>
+    <script src="data/cards-level2.js"></script>
+    <script src="data/cards-python.js"></script>
+    <script src="data/cards-comparison.js"></script>
+    <script src="data/cards-visualization.js"></script>
+    <script src="data/cards-data-shape.js"></script>
+    <script src="data/cards-red-flag.js"></script>
+    <script src="data/cards-claim.js"></script>
+    <script src="data/cards-transcript.js"></script>
+    <script src="data/cards-example.js"></script>
+
+    <script src="app.js"></script>
+  </body>
+</html>
